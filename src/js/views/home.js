@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Form, Button, Card, Spinner, Table } from "react-bootstrap";
 import { Statistic, Label, Flag } from "semantic-ui-react";
-import Tooltip from "react-simple-tooltip";
 import { CountUp } from "use-count-up";
 
 const internationalNumberFormat = new Intl.NumberFormat("en-US");

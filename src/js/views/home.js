@@ -51,7 +51,7 @@ export const Home = () => {
 							</th>
 							<th>
 								<Label color="red" horizontal>
-									Changes
+									Change
 								</Label>
 							</th>
 						</tr>

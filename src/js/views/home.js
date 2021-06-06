@@ -6,7 +6,7 @@ import { Statistic, Label, Flag } from "semantic-ui-react";
 import { CountUp } from "use-count-up";
 
 const internationalNumberFormat = new Intl.NumberFormat("en-US");
-const percentageNumberFormat = Intl.NumberFormat("en-GB", {
+const percentageNumberFormat = Intl.NumberFormat("en-US", {
 	style: "percent",
 	minimumFractionDigits: 1,
 	maximumFractionDigits: 2

@@ -48,7 +48,7 @@ export const Home = () => {
 					? "Last updated: " + store.country_data.lastUpdatedDate
 					: ""}
 			</p>
-			<div className="container w-25 pt-3">
+			<div className="container-fluid w-50 pt-3">
 				<Table striped bordered hover size="md" responsive="md">
 					<thead>
 						<tr>

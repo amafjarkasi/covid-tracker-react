@@ -7,6 +7,11 @@ import Tooltip from "react-simple-tooltip";
 import { CountUp } from "use-count-up";
 
 const internationalNumberFormat = new Intl.NumberFormat("en-US");
+const percentageNumberFormat = Intl.NumberFormat("en-GB", {
+	style: "percent",
+	minimumFractionDigits: 1,
+	maximumFractionDigits: 2
+});
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
@@ -23,7 +28,7 @@ export const Home = () => {
 		<div className="text-center mt-5">
 			<h1>
 				{isNaN(store.country_data.population) == false ? (
-					store.country_data.country + " Overall Statistics"
+					"USA" + " COVID-19 Statistics"
 				) : (
 					<Spinner animation="border" variant="primary" />
 				)}
@@ -65,7 +70,7 @@ export const Home = () => {
 							<td>Test positivity rate</td>
 							<td>
 								{isNaN(store.country_metrics.testPositivityRatio) == false ? (
-									(store.country_metrics.testPositivityRatio * 100).toFixed(2) + "%"
+									percentageNumberFormat.format(store.country_metrics.testPositivityRatio)
 								) : (
 									<Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" />
 								)}
@@ -75,7 +80,7 @@ export const Home = () => {
 							<td>Case density/per 100k population</td>
 							<td>
 								{isNaN(store.country_metrics.caseDensity) == false ? (
-									(store.country_metrics.caseDensity * 1).toFixed(2)
+									(store.country_metrics.caseDensity * 1).toFixed(2) + "/persons"
 								) : (
 									<Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" />
 								)}
@@ -91,16 +96,32 @@ export const Home = () => {
 								)}
 							</td>
 						</tr>
+						<tr>
+							<td>
+								Infection rate 90
+								<sup>th</sup> percentile
+							</td>
+							<td>
+								{isNaN(store.country_metrics.infectionRateCI90) == false ? (
+									(store.country_metrics.infectionRateCI90 * 1).toFixed(2)
+								) : (
+									<Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" />
+								)}
+							</td>
+						</tr>
+						<tr>
+							<td>ICU capacity ratio</td>
+							<td>
+								{isNaN(store.country_metrics.icuCapacityRatio) == false ? (
+									percentageNumberFormat.format(store.country_metrics.icuCapacityRatio)
+								) : (
+									<Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" />
+								)}
+							</td>
+						</tr>
 					</tbody>
 				</Table>
 			</div>
-			{/* <Form.Label>State</Form.Label>
-			<Form.Control as="select" defaultValue="Choose...">
-				<option>Choose...</option>
-				<option>...</option>
-			</Form.Control>
-			<Button variant="outline-success">Search</Button>
-		</Form> */}
 		</div>
 	);
 };

@@ -32,7 +32,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						return response.json();
 					})
 					.then(function(responseAsJson) {
-						console.log(responseAsJson.metrics);
 						setStore({ country_metrics: responseAsJson.metrics });
 						setStore({ country_actuals: responseAsJson.actuals });
 						setStore({ country_annotations: responseAsJson.annotations });

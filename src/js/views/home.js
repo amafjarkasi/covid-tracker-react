@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
-import { Form, Button, Card, Spinner, Table, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Form, Button, Card, Spinner, Table } from "react-bootstrap";
 import { Statistic, Label, Flag } from "semantic-ui-react";
+import Tooltip from "react-simple-tooltip";
+import { CountUp } from "use-count-up";
 
 const internationalNumberFormat = new Intl.NumberFormat("en-US");
 
@@ -29,9 +31,11 @@ export const Home = () => {
 
 			<Statistic color="red">
 				<Statistic.Value>
-					{isNaN(store.country_data.population) == false
-						? internationalNumberFormat.format(store.country_data.population)
-						: ""}
+					{isNaN(store.country_data.population) == false ? (
+						<CountUp isCounting duration={5} end={store.country_data.population} shouldUseToLocaleString />
+					) : (
+						""
+					)}
 				</Statistic.Value>
 				<Statistic.Label>Population</Statistic.Label>
 			</Statistic>

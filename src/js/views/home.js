@@ -1,15 +1,102 @@
-import React from "react";
-import rigoImage from "../../img/rigo-baby.jpg";
-import "../../styles/home.scss";
+import React, { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
+import { Form, Button, Card, Spinner, Table, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Statistic, Label, Flag } from "semantic-ui-react";
 
-export const Home = () => (
-	<div className="text-center mt-5">
-		<h1>Hello Rigo!</h1>
-		<p>
-			<img src={rigoImage} />
-		</p>
-		<a href="#" className="btn btn-success">
-			If you see this green button, bootstrap is working
-		</a>
-	</div>
-);
+const internationalNumberFormat = new Intl.NumberFormat("en-US");
+
+export const Home = () => {
+	const { store, actions } = useContext(Context);
+	const [getData, setData] = useState(null);
+
+	useEffect(() => {
+		const loadCountryData = () => {
+			actions.fetchCountryData();
+		};
+		loadCountryData();
+	}, []);
+
+	return (
+		<div className="text-center mt-5">
+			<h1>
+				{isNaN(store.country_data.population) == false ? (
+					store.country_data.country + " Overall Statistics"
+				) : (
+					<Spinner animation="border" variant="primary" />
+				)}
+			</h1>
+
+			<Statistic color="red">
+				<Statistic.Value>
+					{isNaN(store.country_data.population) == false
+						? internationalNumberFormat.format(store.country_data.population)
+						: ""}
+				</Statistic.Value>
+				<Statistic.Label>Population</Statistic.Label>
+			</Statistic>
+			<p className="pt-3">
+				{store.country_data.lastUpdatedDate != undefined
+					? "Last updated: " + store.country_data.lastUpdatedDate
+					: ""}
+			</p>
+			<div className="container w-25 pt-3">
+				<Table striped bordered hover size="md" responsive="md">
+					<thead>
+						<tr>
+							<th>
+								<Label color="red" horizontal>
+									Metric
+								</Label>
+							</th>
+							<th>
+								<Label color="red" horizontal>
+									Changes
+								</Label>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Test positivity rate</td>
+							<td>
+								{isNaN(store.country_metrics.testPositivityRatio) == false ? (
+									(store.country_metrics.testPositivityRatio * 100).toFixed(2) + "%"
+								) : (
+									<Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" />
+								)}
+							</td>
+						</tr>
+						<tr>
+							<td>Case density/per 100k population</td>
+							<td>
+								{isNaN(store.country_metrics.caseDensity) == false ? (
+									(store.country_metrics.caseDensity * 1).toFixed(2)
+								) : (
+									<Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" />
+								)}
+							</td>
+						</tr>
+						<tr>
+							<td>Infection rate</td>
+							<td>
+								{isNaN(store.country_metrics.infectionRate) == false ? (
+									(store.country_metrics.infectionRate * 1).toFixed(2)
+								) : (
+									<Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" />
+								)}
+							</td>
+						</tr>
+					</tbody>
+				</Table>
+			</div>
+			{/* <Form.Label>State</Form.Label>
+			<Form.Control as="select" defaultValue="Choose...">
+				<option>Choose...</option>
+				<option>...</option>
+			</Form.Control>
+			<Button variant="outline-success">Search</Button>
+		</Form> */}
+		</div>
+	);
+};

@@ -1,6 +1,11 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
+			country_data: [],
+			country_metrics: [],
+			country_actuals: [],
+			country_annotations: [],
+			country_risklevels: [],
 			demo: [
 				{
 					title: "FIRST",
@@ -16,6 +21,28 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
+			fetchCountryData: () => {
+				fetch(`https://api.covidactnow.org/v2/country/US.json?apiKey=${process.env.COVID_API_KEY}`, {
+					method: "GET"
+				})
+					.then(function(response) {
+						if (!response.ok) {
+							throw Error(response.statusText);
+						}
+						return response.json();
+					})
+					.then(function(responseAsJson) {
+						console.log(responseAsJson.metrics);
+						setStore({ country_metrics: responseAsJson.metrics });
+						setStore({ country_actuals: responseAsJson.actuals });
+						setStore({ country_annotations: responseAsJson.annotations });
+						setStore({ country_risklevels: responseAsJson.riskLevels });
+						return setStore({ country_data: responseAsJson });
+					})
+					.catch(function(error) {
+						console.log("Looks like there was a problem: \n", error);
+					});
+			},
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},

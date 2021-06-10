@@ -1,20 +1,39 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
-import { Spinner, Table } from "react-bootstrap";
-import { Statistic, Label } from "semantic-ui-react";
+import { Spinner, Table, ProgressBar } from "react-bootstrap";
+import { Statistic, Label, Card } from "semantic-ui-react";
 import { CountUp } from "use-count-up";
 
 const internationalNumberFormat = new Intl.NumberFormat("en-US");
 const percentageNumberFormat = Intl.NumberFormat("en-US", {
 	style: "percent",
-	minimumFractionDigits: 1,
-	maximumFractionDigits: 2
+	minimumFractionDigits: 0,
+	maximumFractionDigits: 0
 });
 
 export const VacStats = () => {
 	const { store, actions } = useContext(Context);
-	const [getData, setData] = useState(null);
+	const initpercentage = percentageNumberFormat.format(store.country_metrics.vaccinationsInitiatedRatio);
+	const comppercentage = percentageNumberFormat.format(store.country_metrics.vaccinationsCompletedRatio);
+
+	const items = [
+		{
+			header: "Vaccinations Initiated",
+			description: "Indicates number of people vaccinated with the first dose.",
+			meta: `${internationalNumberFormat.format(store.country_actuals.vaccinationsInitiated)}`
+		},
+		{
+			header: "Vaccinations Completed",
+			description: "Indicates number of people vaccinated with both the first and second dose.",
+			meta: `${internationalNumberFormat.format(store.country_actuals.vaccinationsCompleted)}`
+		},
+		{
+			header: "Vaccinations Administered",
+			description: "Total number of vaccine doses administered in general.",
+			meta: `${internationalNumberFormat.format(store.country_actuals.vaccinesAdministered)}`
+		}
+	];
 
 	useEffect(() => {
 		const loadCountryData = () => {
@@ -48,121 +67,36 @@ export const VacStats = () => {
 				</Statistic.Value>
 				<Statistic.Label>Distributed Doses</Statistic.Label>
 			</Statistic>
-			<p className="pt-3">
-				{store.country_data.lastUpdatedDate != undefined
-					? "Last updated: " + store.country_data.lastUpdatedDate
-					: ""}
-			</p>
-			<div className="container-fluid w-75 pt-3">
-				<Table striped bordered hover size="md" responsive="md">
-					<thead>
-						<tr>
-							<th className="text-center" colSpan="2">
-								Vaccination Statistics
-							</th>
-						</tr>
-						<tr>
-							<th>
-								<Label color="red" horizontal>
-									Metric
-								</Label>
-							</th>
-							<th>
-								<Label color="red" horizontal>
-									Change
-								</Label>
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>Test positivity rate</td>
-							<td>
-								{isNaN(store.country_metrics.testPositivityRatio) == false ? (
-									percentageNumberFormat.format(store.country_metrics.testPositivityRatio)
-								) : (
-									<Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" />
-								)}
-							</td>
-						</tr>
-						<tr>
-							<td>Case density/per 100k population</td>
-							<td>
-								{isNaN(store.country_metrics.caseDensity) == false ? (
-									(store.country_metrics.caseDensity * 1).toFixed(2) + "/persons"
-								) : (
-									<Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" />
-								)}
-							</td>
-						</tr>
-						<tr>
-							<td>Infection rate</td>
-							<td>
-								{isNaN(store.country_metrics.infectionRate) == false ? (
-									(store.country_metrics.infectionRate * 1).toFixed(2)
-								) : (
-									<Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" />
-								)}
-							</td>
-						</tr>
-						<tr>
-							<td>
-								Infection rate 90
-								<sup>th</sup> percentile
-							</td>
-							<td>
-								{isNaN(store.country_metrics.infectionRateCI90) == false ? (
-									(store.country_metrics.infectionRateCI90 * 1).toFixed(2)
-								) : (
-									<Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" />
-								)}
-							</td>
-						</tr>
-						<tr>
-							<td>ICU capacity ratio</td>
-							<td>
-								{isNaN(store.country_metrics.icuCapacityRatio) == false ? (
-									percentageNumberFormat.format(store.country_metrics.icuCapacityRatio)
-								) : (
-									<Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" />
-								)}
-							</td>
-						</tr>
-					</tbody>
-				</Table>
-				{/* <Table className="pt-5" striped bordered hover size="md" responsive="md">
-					<thead>
-						<tr>
-							<th className="text-center" colSpan="2">
-								Vaccination Statistics
-							</th>
-						</tr>
-						<tr>
-							<th>
-								<Label color="red" horizontal>
-									Metric
-								</Label>
-							</th>
-							<th>
-								<Label color="red" horizontal>
-									Change
-								</Label>
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>Test positivity rate</td>
-							<td>
-								{isNaN(store.country_metrics.testPositivityRatio) == false ? (
-									percentageNumberFormat.format(store.country_metrics.testPositivityRatio)
-								) : (
-									<Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" />
-								)}
-							</td>
-						</tr>
-					</tbody>
-				</Table> */}
+			<div className="container-fluid w-50 py-5">
+				<p>Vaccinations Initiated:</p>
+				{isNaN(store.country_metrics.vaccinationsInitiatedRatio) == false ? (
+					<ProgressBar
+						now={store.country_metrics.vaccinationsInitiatedRatio * 100}
+						label={`${initpercentage}`}
+						variant="danger"
+					/>
+				) : (
+					<Spinner animation="border" variant="primary" />
+				)}
+				<br />
+				<br />
+				<p>Vaccinations Completed:</p>
+				{isNaN(store.country_metrics.vaccinationsCompletedRatio) == false ? (
+					<ProgressBar
+						now={store.country_metrics.vaccinationsCompletedRatio * 100}
+						label={`${comppercentage}`}
+						variant="warning"
+					/>
+				) : (
+					<Spinner animation="border" variant="primary" />
+				)}
+			</div>
+			<div className="container-fluid w-100 pt-5">
+				{isNaN(store.country_actuals.vaccinationsInitiated) == false ? (
+					<Card.Group centered items={items} />
+				) : (
+					<Spinner animation="border" variant="primary" />
+				)}
 			</div>
 		</div>
 	);

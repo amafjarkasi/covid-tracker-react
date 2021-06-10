@@ -11,7 +11,7 @@ export const Topbar = () => {
 					<Navbar.Brand href="/">COVID-19 - Data Tracker</Navbar.Brand>
 					<Nav className="me-auto">
 						<LinkContainer to="/">
-							<Nav.Link>Home</Nav.Link>
+							<Nav.Link>Main</Nav.Link>
 						</LinkContainer>
 						<LinkContainer to="/vacstats">
 							<Nav.Link>Vaccination</Nav.Link>

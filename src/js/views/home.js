@@ -36,7 +36,7 @@ export const Home = () => {
 			<Statistic color="red">
 				<Statistic.Value>
 					{isNaN(store.country_data.population) == false ? (
-						<CountUp isCounting duration={3} end={store.country_data.population} shouldUseToLocaleString />
+						<CountUp isCounting duration={2} end={store.country_data.population} shouldUseToLocaleString />
 					) : (
 						""
 					)}

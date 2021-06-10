@@ -10,6 +10,7 @@ import injectContext from "./store/appContext";
 import { Topbar } from "./component/topbar";
 import { Footer } from "./component/footer";
 import { VacStats } from "./views/vaccination";
+import { Actuals } from "./views/actuals";
 
 //create your first component
 const Layout = () => {
@@ -31,6 +32,9 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/vacstats">
 							<VacStats />
+						</Route>
+						<Route exact path="/actuals">
+							<Actuals />
 						</Route>
 						<Route exact path="/single/:theid">
 							<Single />

@@ -37,7 +37,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						setStore({ country_actuals: responseAsJson.actuals });
 						setStore({ country_annotations: responseAsJson.annotations });
 						setStore({ country_risklevels: responseAsJson.riskLevels });
-						setStore({ country_data: responseAsJson })
+						setStore({ country_data: responseAsJson });
 						return setStore({ data_stored: true });
 					})
 					.catch(function(error) {

@@ -27,7 +27,7 @@ export const Home = () => {
 		<div className="text-center mt-5">
 			<h1>
 				{isNaN(store.country_data.population) == false ? (
-					"USA" + " COVID-19 Statistics"
+					"USA" + " COVID-19 - Statistics"
 				) : (
 					<Spinner animation="border" variant="primary" />
 				)}
@@ -125,39 +125,6 @@ export const Home = () => {
 						</tr>
 					</tbody>
 				</Table>
-				{/* <Table className="pt-5" striped bordered hover size="md" responsive="md">
-					<thead>
-						<tr>
-							<th className="text-center" colSpan="2">
-								Vaccination Statistics
-							</th>
-						</tr>
-						<tr>
-							<th>
-								<Label color="red" horizontal>
-									Metric
-								</Label>
-							</th>
-							<th>
-								<Label color="red" horizontal>
-									Change
-								</Label>
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>Test positivity rate</td>
-							<td>
-								{isNaN(store.country_metrics.testPositivityRatio) == false ? (
-									percentageNumberFormat.format(store.country_metrics.testPositivityRatio)
-								) : (
-									<Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" />
-								)}
-							</td>
-						</tr>
-					</tbody>
-				</Table> */}
 			</div>
 		</div>
 	);

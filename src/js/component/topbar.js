@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Navbar, Nav, Container, DropdownButton, Dropdown } from "react-bootstrap";
+import { Navbar, Nav, Container } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 export const Topbar = () => {
@@ -16,9 +16,9 @@ export const Topbar = () => {
 						<LinkContainer to="/vacstats">
 							<Nav.Link>Vaccination</Nav.Link>
 						</LinkContainer>
-						<LinkContainer to="/actuals">
+						{/* <LinkContainer to="/actuals">
 							<Nav.Link>Actuals</Nav.Link>
-						</LinkContainer>
+						</LinkContainer> */}
 					</Nav>
 				</Container>
 			</Navbar>

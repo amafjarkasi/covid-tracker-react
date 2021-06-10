@@ -26,7 +26,7 @@ export const VacStats = () => {
 	return (
 		<div className="text-center mt-5">
 			<h1>
-				{isNaN(store.country_actuals.vaccinationsInitiated) == false ? (
+				{isNaN(store.country_actuals.vaccinesDistributed) == false ? (
 					"USA" + " COVID-19 - Vaccination Statistics"
 				) : (
 					<Spinner animation="border" variant="primary" />
@@ -35,34 +35,18 @@ export const VacStats = () => {
 
 			<Statistic color="red">
 				<Statistic.Value>
-					{isNaN(store.country_actuals.vaccinationsInitiated) == false ? (
+					{isNaN(store.country_actuals.vaccinesDistributed) == false ? (
 						<CountUp
 							isCounting
 							duration={2}
-							end={store.country_actuals.vaccinationsInitiated}
+							end={store.country_actuals.vaccinesDistributed}
 							shouldUseToLocaleString
 						/>
 					) : (
 						""
 					)}
 				</Statistic.Value>
-				<Statistic.Label>Vaccinations Initiated</Statistic.Label>
-			</Statistic>
-			<br />
-			<Statistic color="red">
-				<Statistic.Value>
-					{isNaN(store.country_actuals.vaccinationsCompleted) == false ? (
-						<CountUp
-							isCounting
-							duration={2}
-							end={store.country_actuals.vaccinationsCompleted}
-							shouldUseToLocaleString
-						/>
-					) : (
-						""
-					)}
-				</Statistic.Value>
-				<Statistic.Label>Vaccinations Completed</Statistic.Label>
+				<Statistic.Label>Distributed Doses</Statistic.Label>
 			</Statistic>
 			<p className="pt-3">
 				{store.country_data.lastUpdatedDate != undefined

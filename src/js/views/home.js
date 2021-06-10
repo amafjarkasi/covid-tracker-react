@@ -20,7 +20,7 @@ export const Home = () => {
 		const loadCountryData = () => {
 			actions.fetchCountryData();
 		};
-		loadCountryData();
+		!store.data_stored && loadCountryData();
 	}, []);
 
 	return (

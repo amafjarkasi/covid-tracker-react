@@ -6,6 +6,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			country_actuals: [],
 			country_annotations: [],
 			country_risklevels: [],
+			data_stored: false,
 			demo: [
 				{
 					title: "FIRST",
@@ -36,7 +37,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						setStore({ country_actuals: responseAsJson.actuals });
 						setStore({ country_annotations: responseAsJson.annotations });
 						setStore({ country_risklevels: responseAsJson.riskLevels });
-						return setStore({ country_data: responseAsJson });
+						setStore({ country_data: responseAsJson })
+						return setStore({ data_stored: true });
 					})
 					.catch(function(error) {
 						console.log("Looks like there was a problem: \n", error);

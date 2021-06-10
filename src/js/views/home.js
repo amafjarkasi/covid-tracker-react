@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
-import { Form, Button, Card, Spinner, Table } from "react-bootstrap";
+import { Spinner, Table } from "react-bootstrap";
 import { Statistic, Label, Flag } from "semantic-ui-react";
 import { CountUp } from "use-count-up";
 

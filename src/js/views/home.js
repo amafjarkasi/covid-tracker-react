@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Spinner, Table } from "react-bootstrap";
-import { Statistic, Label, Flag } from "semantic-ui-react";
+import { Statistic, Label } from "semantic-ui-react";
 import { CountUp } from "use-count-up";
 
 const internationalNumberFormat = new Intl.NumberFormat("en-US");

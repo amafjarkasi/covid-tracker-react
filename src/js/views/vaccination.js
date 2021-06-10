@@ -56,8 +56,8 @@ export const VacStats = () => {
 			<div className="container-fluid w-75 pt-3">
 				<Table striped bordered hover size="md" responsive="md">
 					<thead>
-						<tr style={{ border: "0px" }}>
-							<th style={{ border: "none" }} className="text-center" colSpan="2">
+						<tr>
+							<th className="text-center" colSpan="2">
 								Vaccination Statistics
 							</th>
 						</tr>

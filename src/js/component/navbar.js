@@ -12,11 +12,13 @@ export const Navbar = () => {
 				</Link>
 				<div className="ml-auto">
 					{/* <Link to="/demo"> */}
-					<DropdownButton variant="danger" id="dropdown-basic-button" title="Other Options">
-						<LinkContainer to="/demo">
-							<Dropdown.Item>Action</Dropdown.Item>
+					<DropdownButton variant="danger" id="dropdown-basic-button" title="Menu">
+						<LinkContainer to="/">
+							<Dropdown.Item>Home</Dropdown.Item>
 						</LinkContainer>
-						<Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+						<LinkContainer to="/vacstats">
+							<Dropdown.Item>Vaccination Statistics</Dropdown.Item>
+						</LinkContainer>
 						<Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
 					</DropdownButton>
 					{/* </Link> */}

@@ -12,7 +12,7 @@ const percentageNumberFormat = Intl.NumberFormat("en-US", {
 	maximumFractionDigits: 2
 });
 
-export const Home = () => {
+export const VacStats = () => {
 	const { store, actions } = useContext(Context);
 	const [getData, setData] = useState(null);
 
@@ -26,8 +26,8 @@ export const Home = () => {
 	return (
 		<div className="text-center mt-5">
 			<h1>
-				{isNaN(store.country_data.population) == false ? (
-					"USA" + " COVID-19 Statistics"
+				{isNaN(store.country_actuals.vaccinationsInitiated) == false ? (
+					"USA" + " COVID-19 - Vaccination Statistics"
 				) : (
 					<Spinner animation="border" variant="primary" />
 				)}
@@ -35,13 +35,34 @@ export const Home = () => {
 
 			<Statistic color="red">
 				<Statistic.Value>
-					{isNaN(store.country_data.population) == false ? (
-						<CountUp isCounting duration={3} end={store.country_data.population} shouldUseToLocaleString />
+					{isNaN(store.country_actuals.vaccinationsInitiated) == false ? (
+						<CountUp
+							isCounting
+							duration={2}
+							end={store.country_actuals.vaccinationsInitiated}
+							shouldUseToLocaleString
+						/>
 					) : (
 						""
 					)}
 				</Statistic.Value>
-				<Statistic.Label>Population</Statistic.Label>
+				<Statistic.Label>Vaccinations Initiated</Statistic.Label>
+			</Statistic>
+			<br />
+			<Statistic color="red">
+				<Statistic.Value>
+					{isNaN(store.country_actuals.vaccinationsCompleted) == false ? (
+						<CountUp
+							isCounting
+							duration={2}
+							end={store.country_actuals.vaccinationsCompleted}
+							shouldUseToLocaleString
+						/>
+					) : (
+						""
+					)}
+				</Statistic.Value>
+				<Statistic.Label>Vaccinations Completed</Statistic.Label>
 			</Statistic>
 			<p className="pt-3">
 				{store.country_data.lastUpdatedDate != undefined
@@ -53,7 +74,7 @@ export const Home = () => {
 					<thead>
 						<tr style={{ border: "0px" }}>
 							<th style={{ border: "none" }} className="text-center" colSpan="2">
-								Overall Statistics
+								Vaccination Statistics
 							</th>
 						</tr>
 						<tr>
